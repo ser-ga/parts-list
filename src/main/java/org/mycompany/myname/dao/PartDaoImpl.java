@@ -122,7 +122,8 @@ public class PartDaoImpl implements PartDao {
         long result = 0L;
         Session session = this.sessionFactory.getCurrentSession();
         List list = session.createQuery("select min(p.count) from Part p where p.bind = true").list();
-        if (!list.isEmpty()) result = Long.parseLong(list.get(0).toString());
+        if (list.get(0) != null) result = Long.parseLong(list.get(0).toString());
+
         return result;
     }
 
