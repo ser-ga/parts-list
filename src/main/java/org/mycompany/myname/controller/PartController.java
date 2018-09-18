@@ -4,10 +4,11 @@ import org.mycompany.myname.model.Part;
 import org.mycompany.myname.service.PartService;
 import org.mycompany.myname.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Sergey Zhukov
@@ -18,12 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class PartController {
 
     @Autowired
-    @Qualifier(value = "partService")
     private PartService partService;
-
-    public void setPartService(PartService partService) {
-        this.partService = partService;
-    }
 
     @RequestMapping(value = "parts", method = RequestMethod.GET)
     public String listParts(@RequestParam(value = "page", required = false) Integer page,
@@ -79,6 +75,12 @@ public class PartController {
         model.addAttribute("listParts", this.partService.search(query));
         model.addAttribute("query", query);
         return "search";
+    }
+
+    @RequestMapping(value = "angular", method = RequestMethod.GET)
+    public String angular(Model model) {
+
+        return "angular";
     }
 
 }

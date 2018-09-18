@@ -1,7 +1,6 @@
 package org.mycompany.myname.service;
 
 import org.mycompany.myname.model.Part;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * @version 1.0
  */
 
-@Transactional
+
 public interface PartService {
     void addPart(Part part);
     void updatePart(Part part);

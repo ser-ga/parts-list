@@ -3,12 +3,10 @@ package org.mycompany.myname.service;
 import org.mycompany.myname.dao.PartDao;
 import org.mycompany.myname.model.Part;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Sergey Zhukov
@@ -16,14 +14,11 @@ import java.util.Map;
  */
 
 @Service
+@Transactional
 public class PartServiceImpl implements PartService {
 
     @Autowired
     private PartDao partDao;
-
-    public void setPartDao(PartDao partDao) {
-        this.partDao = partDao;
-    }
 
     @Override
     public void addPart(Part part) {

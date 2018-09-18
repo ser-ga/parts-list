@@ -74,5 +74,7 @@
         <div class="col"></div>
     </div>
 </div>
+<script type="text/javascript" src="${base}/webjars/angular/1.7.3/angular.min.js"></script>
+</head>
 </body>
 </html>

@@ -23,10 +23,6 @@ public class PartDaoImpl implements PartDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
     public void addPart(Part part) {
         Session session = this.sessionFactory.getCurrentSession();

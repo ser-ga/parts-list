@@ -1,13 +1,12 @@
 package org.mycompany.myname.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.mycompany.myname.dao.PartDao;
-import org.mycompany.myname.dao.PartDaoImpl;
-import org.mycompany.myname.service.PartService;
-import org.mycompany.myname.service.PartServiceImpl;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -75,27 +74,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public HibernateTransactionManager hibernateTransactionManager() {
+    @Autowired
+    public HibernateTransactionManager hibernateTransactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager tm = new HibernateTransactionManager();
-        tm.setSessionFactory(sessionFactory().getObject());
-
+        tm.setSessionFactory(sessionFactory);
         return tm;
     }
 
     @Bean
-    public PartService partService(){
-        PartServiceImpl partService = new PartServiceImpl();
-        partService.setPartDao(partDao());
-
-        return partService;
-    }
-
-    @Bean
-    public PartDao partDao(){
-        PartDaoImpl partDao = new PartDaoImpl();
-        partDao.setSessionFactory(sessionFactory().getObject());
-
-        return partDao;
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
     private final Properties hibernateProperties() {
@@ -106,6 +94,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         return hp;
     }
+
 
 }
 
